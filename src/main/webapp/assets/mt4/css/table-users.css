@@ -1,0 +1,20 @@
+@CHARSET "UTF-8";
+.ui-autocomplete.ui-front {
+	z-index: 9999 !important;
+}
+#table-mt4users_wrapper {
+	/*overflow: scroll;*/
+}
+
+body .modal {
+  width: 900px; /* desired relative width */
+}
+body .modal .modal-body {
+	max-height: 500px;
+} 
+body .modal.fade.in {
+  top: auto; /* fade in to correct spot */
+}
+body #portlet-mt4-new-agent-form.modal .modal-body {
+	max-height: none;
+} 

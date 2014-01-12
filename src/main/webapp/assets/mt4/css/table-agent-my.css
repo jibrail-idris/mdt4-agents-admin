@@ -1,0 +1,7 @@
+@CHARSET "UTF-8";
+body .modal .modal-body {
+	max-height: none;
+}
+#downline-clients-trades-table {
+	width: 100% !important;
+}

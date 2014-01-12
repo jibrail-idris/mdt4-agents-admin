@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="base.definition" template="/WEB-INF/jsp/layouts/basic-layout.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="sidebar-menu"
+			value="/WEB-INF/jsp/tiles/sidebar-menu.jsp" />
+		<put-attribute name="css" value="/WEB-INF/jsp/tiles/css.jsp" />
+		<put-attribute name="custom-css" value="" />
+		<put-attribute name="css-table-agents" value="" />
+		<put-attribute name="header" value="/WEB-INF/jsp/tiles/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="javascripts" value="/WEB-INF/jsp/tiles/javascripts.jsp" />
+		<put-attribute name="custom-javascripts" value="" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/tiles/footer.jsp" />
+	</definition>
+
+	<definition name="base.definition.fullwidth"
+		template="/WEB-INF/jsp/layouts/basic-layout-fullwidth.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="css" value="/WEB-INF/jsp/tiles/css.jsp" />
+		<put-attribute name="custom-css" value="" />
+		<put-attribute name="header" value="/WEB-INF/jsp/tiles/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="javascripts" value="/WEB-INF/jsp/tiles/javascripts.jsp" />
+		<put-attribute name="custom-javascripts" value="" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/tiles/footer.jsp" />
+	</definition>
+
+	<definition name="user/all" extends="base.definition">
+		<put-attribute name="title" value="View All Users" />
+		<put-attribute name="css"
+			value="/WEB-INF/jsp/tiles/css-editable.table.jsp" />
+		<put-attribute name="custom-css"
+			value="/WEB-INF/jsp/tiles/users/css-table-users.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsp/users/table.jsp" />
+		<put-attribute name="javascripts"
+			value="/WEB-INF/jsp/tiles/javascripts-editable-table.jsp" />
+		<put-attribute name="custom-javascripts"
+			value="/WEB-INF/jsp/tiles/users/javascripts-table-users.jsp" />
+	</definition>
+
+	<definition name="agent/new" extends="base.definition">
+		<put-attribute name="title" value="Add Agent" />
+		<put-attribute name="body" value="/WEB-INF/jsp/agents/form.jsp" />
+	</definition>
+
+	<definition name="agent/all" extends="base.definition">
+		<put-attribute name="title" value="View All Agents" />
+		<put-attribute name="css"
+			value="/WEB-INF/jsp/tiles/css-editable.table.jsp" />
+		<put-attribute name="custom-css"
+			value="/WEB-INF/jsp/tiles/agents/css-table-agents.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsp/agents/table.jsp" />
+		<put-attribute name="javascripts"
+			value="/WEB-INF/jsp/tiles/javascripts-editable-table.jsp" />
+		<put-attribute name="custom-javascripts"
+			value="/WEB-INF/jsp/tiles/agents/javascripts-table-agents.jsp" />
+	</definition>
+
+	<definition name="agent/my" extends="base.definition">
+		<put-attribute name="title" value="View My Agent Details" />
+		<put-attribute name="css"
+			value="/WEB-INF/jsp/tiles/css-editable.table.jsp" />
+		<put-attribute name="custom-css"
+			value="/WEB-INF/jsp/tiles/agent/css-table-agent-my.jsp" />
+		<put-attribute name="body">
+			<definition template="/WEB-INF/jsp/agent/layouts/tab-layout.jsp">
+				<put-attribute name="clients-open-trades"
+					value="/WEB-INF/jsp/agent/open-orders.jsp" />
+				<put-attribute name="clients-close-trades"
+					value="/WEB-INF/jsp/agent/close-orders.jsp" />
+				<put-attribute name="balance-trades"
+					value="/WEB-INF/jsp/agent/balance-orders.jsp" />
+				<put-attribute name="downline-clients-open-trades"
+					value="/WEB-INF/jsp/agent/downline-clients-open-trades.jsp" />
+				<put-attribute name="downline-clients-close-trades"
+					value="/WEB-INF/jsp/agent/downline-clients-close-trades.jsp" />
+				<put-attribute name="downline-clients-balance-trades"
+					value="/WEB-INF/jsp/agent/downline-balance-orders.jsp" />
+			</definition>
+		</put-attribute>
+		<put-attribute name="javascripts"
+			value="/WEB-INF/jsp/tiles/javascripts-editable-table.jsp" />
+		<put-attribute name="custom-javascripts"
+			value="/WEB-INF/jsp/tiles/agent/javascripts-table-agent-my.jsp" />
+	</definition>
+
+	<definition name="commission/all" extends="base.definition">
+		<put-attribute name="title" value="View All Agents" />
+		<put-attribute name="css"
+			value="/WEB-INF/jsp/tiles/css-editable.table.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsp/commissions/table.jsp" />
+		<put-attribute name="javascripts"
+			value="/WEB-INF/jsp/tiles/javascripts-editable-table.jsp" />
+		<put-attribute name="custom-javascripts"
+			value="/WEB-INF/jsp/tiles/commissions/javascripts-table-commissions.jsp" />
+	</definition>
+	
+	<definition name="profile" extends="base.definition">
+		<put-attribute name="title" value="View My Profile" />
+		<put-attribute name="body">
+			<definition template="/WEB-INF/jsp/profile/layouts/tab-layout.jsp">
+				<put-attribute name="password-form"
+					value="/WEB-INF/jsp/profile/password-form.jsp" />
+			</definition>
+		</put-attribute>
+		<put-attribute name="javascripts"
+			value="/WEB-INF/jsp/tiles/javascripts-editable-table.jsp" />
+		<put-attribute name="custom-javascripts"
+			value="/WEB-INF/jsp/profile/javascripts-profile.jsp" />
+	</definition>
+	
+	<definition name="datagenerator" extends="base.definition">
+	    <put-attribute name="title" value="Testing - Data Generator" />
+	    <put-attribute name="body" value="/WEB-INF/jsp/datagenerator/form.jsp" />
+	</definition>
+	
+	<definition name="i8ln" template="/WEB-INF/jsp/layouts/i8ln-js-layout.jsp">
+	</definition>
+
+</tiles-definitions>

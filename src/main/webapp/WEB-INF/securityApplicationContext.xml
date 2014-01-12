@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                    http://www.springframework.org/schema/security 
+                    http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<http pattern="/login*" security="none" />
+
+	<http use-expressions="true" auto-config="false"  entry-point-ref="loginUrlAuthenticationEntryPoint">
+		<intercept-url pattern="/assets/**" access="permitAll" />
+		<intercept-url pattern="/favicon.ico" access="permitAll" />
+		
+		<intercept-url pattern="/datagenerator**" access="hasRole('admin') and hasIpAddress('localhost')" />
+		
+		<intercept-url pattern="/agent/favicon.ico" access="permitAll" />
+		
+		<intercept-url pattern="/agent/all" access="hasRole('admin')" />
+		<intercept-url pattern="/user/all" access="hasRole('admin')" />
+		
+		<intercept-url pattern="/json/ac/agents/search.json" access="hasRole('admin')" />
+		<intercept-url pattern="/json/ac/mt4users/search.json" access="hasRole('admin')" />
+		
+		<intercept-url pattern="/json/dt/users.json" access="hasRole('admin')" />
+		
+		<intercept-url pattern="/json/rest/agents/save.json" access="hasRole('admin')" />
+		<intercept-url pattern="/json/rest/agents/get.json" access="hasRole('admin')" />
+		<intercept-url pattern="/json/rest/agents/update.json" access="hasRole('admin')" />
+		<intercept-url pattern="/json/rest/agents/delete.json" access="hasRole('admin')" />
+		<intercept-url pattern="/json/rest/clients.json" access="hasRole('admin')" />
+		<intercept-url pattern="/json/rest/clients/count.json" access="hasRole('admin')" />
+		<intercept-url pattern="/json/rest/clients/trades.json" access="hasRole('admin')" />
+		<intercept-url pattern="/json/rest/clients/balance.json" access="hasRole('admin')" />
+		<intercept-url pattern="/json/rest/clients/commissions/downlines.json" access="hasRole('agent')" />
+		<intercept-url pattern="/json/rest/clients/add.json" access="hasRole('admin')" />
+		<intercept-url pattern="/json/rest/clients/delete.json" access="hasRole('admin')" />
+		<intercept-url pattern="/json/rest/clients/ids.json" access="hasRole('admin')" />
+		<intercept-url pattern="/json/rest/clients/managed/ids.json" access="hasRole('admin')" />
+		<intercept-url pattern="/json/rest/mt4/users.json" access="hasRole('admin')" />
+		
+		<intercept-url pattern="/json/rest/users/password/reset.json" access="hasRole('admin')" />
+		
+		<intercept-url pattern="/agent/my" access="hasRole('agent')" />
+		
+		<intercept-url pattern="/**" access="isFullyAuthenticated()" />
+		<custom-filter position="FORM_LOGIN_FILTER" ref="usernamePasswordAuthenticationFilter" />
+		<logout logout-success-url="/" logout-url="/logout" />
+	</http>
+
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="userService">
+			<password-encoder ref="passwordEncoder">
+				<salt-source ref="saltSource" />
+			</password-encoder>
+		</authentication-provider>
+	</authentication-manager>
+
+	<!-- http://blog.awnry.com/post/16183749439/two-factor-authentication-and-spring-security-3 -->
+	<beans:bean id="loginUrlAuthenticationEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <beans:property name="loginFormUrl" value="/login" />
+    </beans:bean>
+    
+     <beans:bean id="usernamePasswordAuthenticationFilter" class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+        <beans:property name="authenticationManager" ref="authenticationManager" />
+        <beans:property name="authenticationFailureHandler" ref="failureHandler" />
+        <beans:property name="authenticationSuccessHandler" ref="successHandler" />
+    </beans:bean>
+    
+    <beans:bean id="successHandler" class="com.mt4agents.security.MT4AuthenticationSuccessHandler">
+    	<beans:property name="agentService" ref="agentService" />
+    </beans:bean>
+    
+    <beans:bean id="failureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+        <beans:property name="defaultFailureUrl" value="/login?error=1" />
+    </beans:bean>
+</beans:beans>

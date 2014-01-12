@@ -1,0 +1,50 @@
+@CHARSET "UTF-8";
+.ui-autocomplete.ui-front {
+	z-index: 9999 !important;
+}
+#portlet-manage-clients-form {
+	/*width: 620px;*/
+}
+#total-vol, #total-comm {
+	font-size: 18px;
+	color: rgb(22, 158, 244);
+}
+.grand-figures {
+	margin-bottom: 6px;
+}
+.grand-figures > div {
+	margin-top: 4px;
+	margin-right: 20px;
+}
+.date-filter-label {
+	margin-top: 6px;
+	margin-right: 6px;
+}
+body .modal {
+  /*width: 900px;*/ /* desired relative width */
+  height: auto;
+}
+body .modal .modal-body {
+	max-height: none;
+} 
+body .modal.fade.in {
+  top: auto; /* fade in to correct spot */
+}
+.btn.mini {
+	height: auto !important;
+}
+.form .form-actions {
+	/*padding-left: 19px;*/
+}
+#portlet-update-agent-form {
+	width: auto !important;
+}
+#portlet-update-agent-form .form .form-actions {
+	padding-left: auto !important;
+}
+#portlet-reset-password-form.modal {
+	width: auto;
+}
+#table-agents {
+	width: 100% !important;
+}

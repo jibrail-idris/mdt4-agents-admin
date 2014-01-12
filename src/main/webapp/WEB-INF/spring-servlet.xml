@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd 
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<mvc:annotation-driven />
+	<context:component-scan base-package="com.mt4agents.web.controllers" />
+
+	<!-- http://stackoverflow.com/questions/1483063/spring-mvc-3-and-handling-static-content-am-i-missing-something -->
+	<mvc:resources mapping="/assets/**" location="/assets/" />
+	<mvc:resources mapping="/agent/assets/**" location="/assets/" />
+	<mvc:resources mapping="/agent/all/**" location="/assets/" />
+	<mvc:resources mapping="/commission/assets/**" location="/assets/" />
+	<mvc:resources mapping="/commission/all/**" location="/assets/" />
+	<mvc:resources mapping="/user/assets/**" location="/assets/" />
+	<mvc:resources mapping="/user/all/**" location="/assets/" />
+	<mvc:resources mapping="/datagenerator/assets/**"
+		location="/assets/" />
+	<mvc:resources mapping="/datagenerator/create/assets/**"
+		location="/assets/" />
+
+	<mvc:view-controller path="/login" view-name="security/login" />
+
+	<bean id="tilesviewResolver"
+		class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"
+		p:order="0" />
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" p:order="1" />
+
+	<bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:labels" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+<!-- 	http://vmustafayev4en.blogspot.com.au/2012/09/spring-3-mvc-internationalization.html -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+		    <mvc:mapping path="/**"/>  
+			<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+				<property name="paramName" value="lang" />
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<property name="defaultLocale" value="en" />
+	</bean>
+
+	<bean id="installService" class="com.mt4agents.services.install.InstallService">
+		<constructor-arg name="userService" ref="userService" />
+		<constructor-arg name="agentService" ref="agentService" />
+		<constructor-arg name="agentClientService" ref="agentClientService" />
+		<constructor-arg name="agentRelationshipService" ref="agentRelationshipService" />
+	</bean>
+
+	<import resource="beans.xml" />
+</beans>
